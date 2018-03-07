@@ -1,0 +1,120 @@
+.success {
+  color: green;
+}
+.new-repair {
+  position: absolute;
+  top: 210px;
+  right: 200px;
+  z-index: 9999 !important;
+}
+
+@media only screen and (max-width: 1024px) {
+  .new-repair {
+    position: absolute;
+    top: 190px;
+    right: 18%;
+    z-index: 9998 !important;
+  }
+}
+
+/* Modal */
+
+.modal-window {
+  position: fixed;
+  background-color: RGBA(153, 153, 153, 0.5);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.modal-window:target {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-window > div {
+  width: 800px;
+  position: relative;
+  margin: 10% auto;
+  padding: 2rem;
+  background: #fff;
+  border: 1px solid #ec5281;
+  border-radius: 5px;
+  color: #444;
+}
+
+.modal-window header {
+  font-weight: bold;
+}
+
+.modal-close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  text-decoration: none;
+}
+
+.modal-close:hover {
+  color: #000;
+}
+
+.modal-window h1 {
+  font-size: 150%;
+  margin: 0 0 15px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .modal-window {
+    width: 100%;
+    z-index: 9999;
+  }
+
+  .modal-window > div {
+    width: 60%;
+    position: relative;
+    margin: 20% auto;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid #ec5281;
+    border-radius: 5px;
+    color: #444;
+  }
+}
+
+/* Revenue Charts  */
+
+canvas {
+  border: 1px solid RGBA(236, 82, 129, 1);
+  border-radius: 2px;
+}
+
+.chart-container {
+  position: relative;
+  margin: auto;
+  height: 60vh;
+  width: 80vw;
+  box-shadow: 7px 7px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* Repair jobs table */
+.repair-jobs-container {
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px;
+}
+.repair-jobs-container table {
+  width: 70%;
+  margin: 0 auto;
+}
