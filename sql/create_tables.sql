@@ -112,14 +112,16 @@ CREATE TABLE ProblemReports (
 );
 
 CREATE TABLE CustomerBills (
-  repairId VARCHAR(20) PRIMARY KEY,
+  billId VARCHAR(20) PRIMARY KEY,
+  machineId VARCHAR(20),
   phone VARCHAR(20),
+  timeIn TIMESTAMP,
   timeOut TIMESTAMP,
   repairPersonId VARCHAR(20),
   laborHours DECIMAL(5, 2),
   costOfParts DECIMAL(10, 2),
   total DECIMAL(10, 2),
-  FOREIGN KEY (repairId) REFERENCES RepairJobs(repairId),
+  FOREIGN KEY (machineId) REFERENCES RepairItems(itemId),
   FOREIGN KEY (phone) REFERENCES Customers(phone),
   FOREIGN KEY (repairPersonId) REFERENCES RepairPersons(employeeNo)
 );
