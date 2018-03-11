@@ -2,10 +2,13 @@ DROP TABLE CustomerBills;
 DROP TABLE ProblemReports;
 DROP TABLE Problems;
 DROP TABLE RepairJobs;
+DROP TABLE RepairLog;
 DROP TABLE RepairPersons;
-DROP TABLE RepairItems;
 DROP TABLE GroupContracts;
 DROP TABLE SingleContracts;
+DROP TABLE Printers;
+DROP TABLE Computers;
+DROP TABLE RepairItems;
 DROP TABLE ServiceContracts;
 DROP TABLE Customers;
 
@@ -13,29 +16,6 @@ DROP TABLE Customers;
 CREATE TABLE Customers (
   name       VARCHAR(20),
   phone      VARCHAR(20) PRIMARY KEY
-);
-
-CREATE TABLE ServiceContracts (
-  contractId VARCHAR(20) PRIMARY KEY,
-  startDate  DATE,
-  endDate    DATE,
-  phone      VARCHAR(20),
-  FOREIGN KEY (phone) REFERENCES Customers(phone)
-);
-
-CREATE TABLE SingleContracts (
-  contractId VARCHAR(20),
-  machineId  VARCHAR(20),
-  PRIMARY KEY(machineId),
-  FOREIGN KEY (contractId) REFERENCES ServiceContracts(contractId)
-);
-
-CREATE TABLE GroupContracts (
-  contractId  VARCHAR(20),
-  computerId  VARCHAR(20),
-  printerId   VARCHAR(20),
-  PRIMARY KEY(computerId, printerId),
-  FOREIGN KEY (contractId) REFERENCES ServiceContracts(contractId)
 );
 
 CREATE TABLE RepairItems (
@@ -59,14 +39,31 @@ CREATE TABLE Computers (
   FOREIGN KEY (itemId) REFERENCES RepairItems(itemId),
   PRIMARY KEY (itemId)
 );
-
-CREATE TABLE Printers (
-  itemId VARCHAR(20),
-  FOREIGN KEY (itemId) REFERENCES RepairItems(itemId),
-  PRIMARY KEY (itemId)
+CREATE TABLE ServiceContracts (
+  contractId VARCHAR(20) PRIMARY KEY,
+  startDate  DATE,
+  endDate    DATE,
+  phone      VARCHAR(20),
+  FOREIGN KEY (phone) REFERENCES Customers(phone)
 );
 
-CREATE TABLE 
+CREATE TABLE SingleContracts (
+  contractId VARCHAR(20),
+  machineId  VARCHAR(20),
+  PRIMARY KEY(contractId),
+  FOREIGN KEY (contractId) REFERENCES ServiceContracts(contractId),
+  FOREIGN KEY (machineId) REFERENCES RepairItems(itemId)
+);
+
+CREATE TABLE GroupContracts (
+  contractId  VARCHAR(20),
+  computerId  VARCHAR(20),
+  printerId   VARCHAR(20),
+  PRIMARY KEY(contractId),
+  FOREIGN KEY (contractId) REFERENCES ServiceContracts(contractId),
+  FOREIGN KEY (computerId) REFERENCES Computers(itemId),
+  FOREIGN KEY (printerId) REFERENCES Printers(itemId)
+);
 
 CREATE TABLE RepairPersons (
   employeeNo VARCHAR(20) PRIMARY KEY,
@@ -83,6 +80,20 @@ CREATE TABLE RepairJobs (
   timeOfArrival      TIMESTAMP,
   status             VARCHAR(20),
   CHECK (status IN ('UNDER_REPAIR', 'READY', 'DONE')),
+  FOREIGN KEY (phone) REFERENCES Customers(phone),
+  FOREIGN KEY (machineId) REFERENCES RepairItems(itemId),
+  FOREIGN KEY (employeeNo) REFERENCES RepairPersons(employeeNo)
+);
+
+CREATE TABLE RepairLog (
+  repairId           VARCHAR(20) PRIMARY KEY,
+  employeeNo         VARCHAR(20),
+  phone              VARCHAR(20),
+  machineID          VARCHAR(20),
+  serviceContractId  VARCHAR(20),
+  timeOfArrival      TIMESTAMP,
+  status             VARCHAR(20),
+  CHECK (status IN ('DONE')),
   FOREIGN KEY (phone) REFERENCES Customers(phone),
   FOREIGN KEY (machineId) REFERENCES RepairItems(itemId),
   FOREIGN KEY (employeeNo) REFERENCES RepairPersons(employeeNo)
