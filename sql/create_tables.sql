@@ -43,8 +43,30 @@ CREATE TABLE RepairItems (
   model  VARCHAR(20),
   price  DECIMAL(10, 2),
   year   INT,
+  serviceContractType VARCHAR(20),
+  CHECK (serviceContractType IN ('NONE', 'SINGLE', 'GROUP')),
   PRIMARY KEY(itemId)
 );
+
+CREATE TABLE Printers (
+  itemId VARCHAR(20),
+  FOREIGN KEY (itemId) REFERENCES RepairItems(itemId),
+  PRIMARY KEY (itemId)
+);
+
+CREATE TABLE Computers (
+  itemId VARCHAR(20),
+  FOREIGN KEY (itemId) REFERENCES RepairItems(itemId),
+  PRIMARY KEY (itemId)
+);
+
+CREATE TABLE Printers (
+  itemId VARCHAR(20),
+  FOREIGN KEY (itemId) REFERENCES RepairItems(itemId),
+  PRIMARY KEY (itemId)
+);
+
+CREATE TABLE 
 
 CREATE TABLE RepairPersons (
   employeeNo VARCHAR(20) PRIMARY KEY,
