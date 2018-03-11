@@ -26,7 +26,7 @@ CREATE TABLE ServiceContracts (
 CREATE TABLE SingleContracts (
   contractId VARCHAR(20),
   machineId  VARCHAR(20),
-  PRIMARY KEY(contractId, machineId),
+  PRIMARY KEY(machineId),
   FOREIGN KEY (contractId) REFERENCES ServiceContracts(contractId)
 );
 
@@ -34,7 +34,7 @@ CREATE TABLE GroupContracts (
   contractId  VARCHAR(20),
   computerId  VARCHAR(20),
   printerId   VARCHAR(20),
-  PRIMARY KEY(contractId, computerId, printerId),
+  PRIMARY KEY(computerId, printerId),
   FOREIGN KEY (contractId) REFERENCES ServiceContracts(contractId)
 );
 
@@ -58,8 +58,7 @@ CREATE TABLE RepairJobs (
   phone              VARCHAR(20),
   machineID          VARCHAR(20),
   serviceContractId  VARCHAR(20),
-  timeOfArrival      DATE,
-  ownersInformation  VARCHAR(20),
+  timeOfArrival      TIMESTAMP,
   status             VARCHAR(20),
   CHECK (status IN ('UNDER_REPAIR', 'READY', 'DONE')),
   FOREIGN KEY (phone) REFERENCES Customers(phone),
@@ -68,7 +67,8 @@ CREATE TABLE RepairJobs (
 );
 
 CREATE TABLE Problems (
-  code VARCHAR(20) PRIMARY KEY
+  code        VARCHAR(20) PRIMARY KEY,
+  description VARCHAR(100)
 );
 
 CREATE TABLE ProblemReports (
@@ -81,7 +81,7 @@ CREATE TABLE ProblemReports (
 CREATE TABLE CustomerBills (
   repairId VARCHAR(20) PRIMARY KEY,
   phone VARCHAR(20),
-  timeOut DATE,
+  timeOut TIMESTAMP,
   repairPersonId VARCHAR(20),
   laborHours DECIMAL(5, 2),
   costOfParts DECIMAL(10, 2),
