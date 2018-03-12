@@ -32,15 +32,14 @@
   $timeOut = isset($_POST['time_out']) ? $_POST['time_out'] : null;
   $cost = isset($_POST['cost']) ? $_POST['cost'] : null;
   $hours = isset($_POST['hours']) ? $_POST['hours'] : null;
-  $total = isset($_POST['total']) ? $_POST['total'] : null;
 
   // Insert into CustomerBill
-  $insertRepairJobQueryString = "UPDATE CustomerBill SET timeIn = '{$time_in}', timeOut = '{$time_out}', cost = '{$cost}', hours = '{$hours}', total = '{$total}' WHERE billId = '{$billId}')";
-  $insertRepairJobQuery = oci_parse($conn, $insertRepairJobQueryString);
-  $insertRepairJobQueryResult = oci_execute($insertRepairJobQuery);
+  $insertBillQueryString = "UPDATE CustomerBills SET timeIn = '{$time_in}', timeOut = '{$time_out}', cost = '{$cost}', hours = '{$hours}' WHERE billId = '{$billId}')";
+  $insertBillQuery = oci_parse($conn, $insertBillQueryString);
+  $insertBillQueryResult = oci_execute($insertBillQuery);
 
-	if (!$insertRepairJobQueryResult) {
-		$e = oci_error($insertRepairJobQuery);
+	if (!$insertBillQueryResult) {
+		$e = oci_error($insertBillQuery);
 		echo "CustomerBill Insert Error: {$e['message']}";
 		exit;
 	}
