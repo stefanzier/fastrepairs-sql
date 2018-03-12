@@ -6,6 +6,8 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="./css/library/modal.css">
+    <link rel="stylesheet" href="./css/library/form.css">
     <link rel="stylesheet" href="./css/styles.css">
 
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
@@ -43,10 +45,10 @@
 
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
             for="demo-menu-lower-right">
-          <li class="mdl-menu__item">Accept Machine for Repair</li>
+          <a href="#acceptModal"><li class="mdl-menu__item">Accept Machine for Repair</li></a>
+          <a href="#updateMachinesModal" id="updateMachinesModal"><li class="mdl-menu__item">Update Machine Status</li></a>
           <li class="mdl-menu__item">Show Machine Status</li>
           <li class="mdl-menu__item">Show Customer Bill</li>
-          <li class="mdl-menu__item">Show Machine Status</li>
         </ul>
 
       <!-- Revenue Charts -->
@@ -56,7 +58,89 @@
     </div>
 
 
+    <!-- Modals -->
+    <div id="acceptModal" class="modalbg">
+      <div class="dialog">
+        <a href="#close" title="Close" class="close">X</a>
+      	<h2>Accept Machine for Repair</h2>
+        <form id="acceptMachineForm" action="index.html" method="post">
+          <div class="form-group">
+            <input type="text" name="contract_id" required="required"/>
+            <label class="control-label" for="input">Contract ID (Optional)</label><i class="bar"></i>
+          </div>
+          <div class="form-group">
+            <input type="text" name="cust_name" required="required"/>
+            <label class="control-label"  for="input">Custome Name</label><i class="bar"></i>
+          </div>
+          <div class="form-group">
+            <input type="text" name="cust_phone" required="required"/>
+            <label class="control-label" for="input">Custome Phone</label><i class="bar"></i>
+          </div>
+          <div class="form-group">
+            <input type="text" name="model" required="required"/>
+            <label class="control-label" for="input">Model</label><i class="bar"></i>
+          </div>
+          <div class="form-group">
+            <input type="text" name="price" required="required"/>
+            <label class="control-label" for="input">Price</label><i class="bar"></i>
+          </div>
+          <div class="form-group">
+            <input type="text" name="year" required="required"/>
+            <label class="control-label" for="input">Year</label><i class="bar"></i>
+          </div>
+          <div class="form-group">
+            <select name="machine_type" >
+              <option>Computer</option>
+              <option>Printer</option>
+            </select>
+            <label class="control-label" for="select">Machine Type</label><i class="bar"></i>
+          </div>
+          <div class="button-container">
+           <button class="button" type="submit"><span>Submit</span></button>
+         </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="updateMachinesModal" class="modalbg">
+      <div class="dialog">
+        <a href="#close" title="Close" class="close">X</a>
+      	<h2>Update Machine Status</h2>
+        <form id="acceptMachineForm" action="index.html" method="post">
+          <div class="update-machine-status-container">
+            <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+              <thead>
+                <tr>
+                  <th>Machine ID</th>
+                  <th>Service Contract ID</th>
+                  <th>Arrival Time</th>
+                  <th>Owner Info</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mdl-data-table__cell--non-numeric">a00b23rt12j2</td>
+                  <td>c4j3kl12k3j2</td>
+                  <td>2018-03-02 04:51 PM</td>
+                  <td>Name: Bob, Phone: 6501231234, something else here</td>
+                  <td class="success">DONE</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="button-container">
+           <button class="button" type="submit"><span>Submit</span></button>
+         </div>
+        </form>
+      </div>
+    </div>
+
     <!-- For chart js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/db/db.js"></script>
+    <script type="text/javascript" src="./js/forms.js"></script>
     <script type="text/javascript" src="./js/revenue-charts.js"></script>
   </body>
 </html>

@@ -33,9 +33,9 @@ INSERT INTO SingleContracts VALUES('sc002', 'item002');
 --INSERT INTO GroupContracts VALUES('sc003', '', '');
 
 -- Repair Jobs
-INSERT INTO RepairJobs VALUES('job001', 'emp001', '(408)-257-1375', 'item001', 'sc001', TIMESTAMP'2018-03-01 10:35:05.00', 'DONE'); 
-INSERT INTO RepairJobs VALUES('job002', 'emp002', '(408)-335-7131', 'item002', 'sc002', TIMESTAMP'2018-03-10 12:45:34.00', 'READY'); 
-INSERT INTO RepairJobs VALUES('job003', 'emp003', '(317)-333-2587', 'item003', 'sc003', TIMESTAMP'2018-02-02 15:43:40.00', 'UNDER_REPAIR'); 
+INSERT INTO RepairJobs VALUES('job001', 'emp001', '(408)-257-1375', 'item001', 'sc001', TIMESTAMP'2018-03-01 10:35:05.00', 'DONE');
+INSERT INTO RepairJobs VALUES('job002', 'emp002', '(408)-335-7131', 'item002', 'sc002', TIMESTAMP'2018-03-10 12:45:34.00', 'READY');
+INSERT INTO RepairJobs VALUES('job003', 'emp003', '(317)-333-2587', 'item003', 'sc003', TIMESTAMP'2018-02-02 15:43:40.00', 'UNDER_REPAIR');
 
 -- Problems
 INSERT INTO Problems VALUES('pr01', 'Dead battery.');
@@ -50,8 +50,6 @@ INSERT INTO ProblemReports VALUES('item002', 'pr03');
 INSERT INTO ProblemReports VALUES('item003', 'pr05');
 
 -- Customer Bill
-INSERT INTO CustomerBills VALUES('job001', '(408)-257-1375', TIMESTAMP'2018-03-10 15:14:03.00', 'emp001', 24.2, 103.45, 200.00);
-INSERT INTO CustomerBills VALUES('job002', '(408)-335-7131', NULL, 'emp002', 5.4, 35.00, NULL);
-INSERT INTO CustomerBills VALUES('job003', '(317)-333-2587', NULL, 'emp003', 4.3, 10.00, NULL);
-
-
+INSERT INTO CustomerBills VALUES('bill001', 'item001', '(408)-257-1375', TIMESTAMP'2018-03-01 10:35:05.00', TIMESTAMP'2018-03-10 15:14:03.00', 'emp001', 24.2, 103.45, 200.00);
+INSERT INTO CustomerBills VALUES('bill002', 'item002', '(408)-335-7131', TIMESTAMP'2018-03-10 12:45:34.00', NULL, 'emp002', 5.4, 35.00, NULL);
+INSERT INTO CustomerBills VALUES('bill003', 'item003', '(317)-333-2587', TIMESTAMP'2018-02-02 15:43:40.00', NULL, 'emp003', 4.3, 10.00, NULL);
