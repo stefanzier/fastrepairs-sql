@@ -96,7 +96,8 @@ CREATE TABLE RepairLog (
   CHECK (status IN ('DONE')),
   FOREIGN KEY (phone) REFERENCES Customers(phone),
   FOREIGN KEY (machineId) REFERENCES RepairItems(itemId),
-  FOREIGN KEY (employeeNo) REFERENCES RepairPersons(employeeNo)
+  FOREIGN KEY (employeeNo) REFERENCES RepairPersons(employeeNo),
+  FOREIGN KEY (serviceContractId) REFERENCES ServiceContracts(contractId)
 );
 
 CREATE TABLE Problems (
