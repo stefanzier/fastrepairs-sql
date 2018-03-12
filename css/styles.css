@@ -113,7 +113,14 @@ canvas {
   width: 100%;
   margin-top: 20px;
   padding: 20px;
+  position: absolute;
+  top: 0;
 }
+.repair-jobs-container table {
+  width: 100%;
+  margin: 0 auto;
+}
+
 .repair-jobs-container table {
   width: 70%;
   margin: 0 auto;

@@ -46,8 +46,7 @@
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
             for="demo-menu-lower-right">
           <a href="#acceptModal"><li class="mdl-menu__item">Accept Machine for Repair</li></a>
-          <a href="#updateMachinesModal" id="updateMachinesModal"><li class="mdl-menu__item">Update Machine Status</li></a>
-          <li class="mdl-menu__item">Show Machine Status</li>
+          <a href="#updateMachinesModal" id="updateMachines"><li class="mdl-menu__item">Update Machine Status</li></a>
           <li class="mdl-menu__item">Show Customer Bill</li>
         </ul>
 
@@ -59,6 +58,66 @@
 
 
     <!-- Modals -->
+	<div id="updateMachineDetailsModal" class="modalbg">
+      <div class="dialog" >
+        <a href="#close" title="Close" class="close">X</a>
+      	<h2>Update Machine Details</h2>
+        <form id="machineDetailsForm" action="index.html" method="post">
+		  <div class="form-group">
+            	<input type="text" name="details_repair_id" required="required"/>
+            	<label class="control-label" for="input">JobID</label><i class="bar"></i>
+          </div>
+		  <div class="form-group">
+            	<input type="text" name="details_employee_no" required="required"/>
+            	<label class="control-label" for="input">EmployeeNo</label><i class="bar"></i>
+          </div>
+		  <div class="form-group">
+            	<input type="text" name="details_bill_id" required="required"/>
+            	<label class="control-label" for="input">BillID</label><i class="bar"></i>
+          </div>
+		  <div class="form-group">
+            	<input type="text" name="details_phone" required="required"/>
+            	<label class="control-label" for="input">Phone</label><i class="bar"></i>
+          </div>
+		  <div class="form-group">
+            	<input type="text" name="details_machine_id" required="required"/>
+            	<label class="control-label" for="input">MachineID</label><i class="bar"></i>
+          </div>
+		  <div class="form-group">
+            	<input type="text" name="details_service_contract_id" required="required"/>
+            	<label class="control-label" for="input">Service Contract ID</label><i class="bar"></i>
+          </div>
+		  <div class="form-group">
+            <select name="details_machine_status" >
+              <option>UNDER_REPAIR</option>
+              <option>READY</option>
+              <option>DONE</option>
+            </select>
+            <label class="control-label" for="select">Machine Status</label><i class="bar"></i>
+          </div>
+
+		  <div class="form-group">
+            	<input type="text" name="details_time_in" required="required"/>
+            	<label class="control-label" for="input">Time In</label><i class="bar"></i>
+          </div>
+		  <div class="form-group">
+            	<input type="text" name="details_time_out"/>
+            	<label class="control-label" for="input">Time Out</label><i class="bar"></i>
+          </div>
+		  <div class="form-group">
+            	<input type="text" name="details_cost_of_parts" required="required"/>
+            	<label class="control-label" for="input">Cost</label><i class="bar"></i>
+          </div>
+		  <div class="form-group">
+            	<input type="text" name="details_time_hours" required="required"/>
+            	<label class="control-label" for="input">Hours</label><i class="bar"></i>
+          </div>
+          <div class="button-container">
+           <button class="button" type="submit"><span>Submit</span></button>
+         </div>
+        </form>
+      </div>
+    </div>
     <div id="acceptModal" class="modalbg">
       <div class="dialog">
         <a href="#close" title="Close" class="close">X</a>
@@ -102,40 +161,13 @@
       </div>
     </div>
 
-    <div id="updateMachinesModal" class="modalbg">
-      <div class="dialog">
+    <div id="updateMachinesModal" class="modalbg" style="overlfow: scroll">
+      <div class="dialog" id="machine-items-dialog">
         <a href="#close" title="Close" class="close">X</a>
       	<h2>Update Machine Status</h2>
-        <form id="acceptMachineForm" action="index.html" method="post">
-          <div class="update-machine-status-container">
-            <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
-              <thead>
-                <tr>
-                  <th>Machine ID</th>
-                  <th>Service Contract ID</th>
-                  <th>Arrival Time</th>
-                  <th>Owner Info</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="mdl-data-table__cell--non-numeric">a00b23rt12j2</td>
-                  <td>c4j3kl12k3j2</td>
-                  <td>2018-03-02 04:51 PM</td>
-                  <td>Name: Bob, Phone: 6501231234, something else here</td>
-                  <td class="success">DONE</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="button-container">
-           <button class="button" type="submit"><span>Submit</span></button>
-         </div>
-        </form>
       </div>
     </div>
+
 
     <!-- For chart js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
