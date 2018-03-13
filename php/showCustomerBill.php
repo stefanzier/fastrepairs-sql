@@ -20,10 +20,10 @@
 		exit;
   }  
   // Get CustomerBills values into variables
-  $costOfParts = oci_result($billsQuery, 'costOfParts');
-  $laborHours = oci_result($billsQuery, 'laborHours');
-  $total = oci_result($billsQuery, 'total');
-  $phone = oci_result($billsQuery, 'phone');
+  $costOfParts = oci_result($billsQuery, 'COSTOFPARTS');
+  $laborHours = oci_result($billsQuery, 'LABORHOURS');
+  $total = oci_result($billsQuery, 'TOTAL');
+  $phone = oci_result($billsQuery, 'PHONE');
 
   // Query Customers for name using phone
   $customerQueryString = "SELECT * FROM Customers WHERE phone = '{$phone}'";
@@ -35,7 +35,7 @@
 		exit;
   }
   // Get Customer name value into variable
-  $name = oci_result($customerQuery, 'name');
+  $name = oci_result($customerQuery, 'NAME');
 
   // Query RepairItem for Model
   $repairQueryString = "SELECT * FROM RepairItems WHERE itemId = '{$machineId}'";
@@ -47,7 +47,7 @@
 		exit;
   }
   // Get model value into variable
-  $model = oci_result($repairQuery, 'model');
+  $model = oci_result($repairQuery, 'MODEL');
 
   // Query RepairJobs for Time of Arrival
   $jobsQueryString = "SELECT * FROM RepairJosb WHERE machineId = '{$machineId}'";
