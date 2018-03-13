@@ -22,7 +22,6 @@ $(window).on("load", function() {
 
   // Show all machines in update machines modal
   $("#updateMachines").on("click", function(e) {
-	console.log("here");
     db.receiveInfo("./php/getMachines.php", {}, "GET", function(data) {
       if (data.length === 0) {
 		alert("Uh oh! Please ensure that there are machines in RepairJobs table.");
