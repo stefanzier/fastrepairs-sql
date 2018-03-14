@@ -78,34 +78,3 @@ CREATE OR REPLACE TRIGGER update_cost_trigger
 	END;
 /
 Show errors;
-
--- Create a trigger to create Customer Bill when something is inserted into RepairLog
-CREATE OR REPLACE TRIGGER create_bill
-	AFTER INSERT ON RepairLog
-	FOR EACH ROW
-	DECLARE
-		v_cost DECIMAL(10, 2);
-		cost_of_parts DECIMAL(10, 2);
-		hours DECIMAL(5, 2); 
-		total DECIMAL(10, 2);
-		contract VARCHAR(20);
-	BEGIN
-		INSERT INTO CustomerBill values();
-
-EATE TABLE CustomerBills (
-  billId VARCHAR(20) PRIMARY KEY,
-  machineId VARCHAR(20),
-  phone VARCHAR(20),
-  timeIn TIMESTAMP,
-  timeOut TIMESTAMP,
-  repairPersonId VARCHAR(20),
-  laborHours DECIMAL(5, 2),
-  costOfParts DECIMAL(10, 2),
-  total DECIMAL(10, 2),
-  FOREIGN KEY (machineId) REFERENCES RepairItems(itemId),
-  FOREIGN KEY (phone) REFERENCES Customers(phone),
-  FOREIGN KEY (repairPersonId) REFERENCES RepairPersons(employeeNo)
-
-	END;
-/
-Show errors;
