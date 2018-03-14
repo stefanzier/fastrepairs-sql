@@ -1,38 +1,43 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>FastRepairs Inc. | Finances</title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <link rel="stylesheet" href="./css/library/modal.css">
-    <link rel="stylesheet" href="./css/library/form.css">
-    <link rel="stylesheet" href="./css/styles.css">
+<head>
+  <meta charset="utf-8">
+  <title>FastRepairs Inc. | Finances</title>
 
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
-  </head>
-  <body>
-    <div class="mdl-layout__container has-scrolling-header">
-      <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header has-tabs is-upgraded" data-upgraded=",MaterialLayout">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <link rel="stylesheet" href="./css/library/modal.css">
+  <link rel="stylesheet" href="./css/library/form.css">
+  <link rel="stylesheet" href="./css/styles.css">
 
-        <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
-          <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-          </div>
-          <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-            <h3>FastRepairs Inc.</h3>
-          </div>
-          <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-          </div>
-          <div class="mdl-layout__tab-bar-container"><div class="mdl-layout__tab-bar-button mdl-layout__tab-bar-left-button"><i class="material-icons">chevron_left</i></div><div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark mdl-js-ripple-effect--ignore-events" data-upgraded=",MaterialRipple">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+</head>
+
+<body>
+  <div class="mdl-layout__container has-scrolling-header">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header has-tabs is-upgraded" data-upgraded=",MaterialLayout">
+
+      <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+          <h3>FastRepairs Inc.</h3>
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout__tab-bar-container">
+          <div class="mdl-layout__tab-bar-button mdl-layout__tab-bar-left-button"><i class="material-icons">chevron_left</i></div>
+          <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark mdl-js-ripple-effect--ignore-events" data-upgraded=",MaterialRipple">
             <a href="index.html" class="mdl-layout__tab " style="width: 15%; margin-right:10%">Finances<span class="mdl-layout__tab-ripple-container mdl-js-ripple-effect" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span></a>
             <a href="repair-jobs.html" class="mdl-layout__tab is-active" style="width: 15%; margin-right:10%"><span id="repairjobsbadge" class="mdl-badge repairjobscount" data-badge="">Repair-Jobs</span></a>
-          </div><div class="mdl-layout__tab-bar-button mdl-layout__tab-bar-right-button"><i class="material-icons">chevron_right</i></div></div>
-        </header>
+          </div>
+          <div class="mdl-layout__tab-bar-button mdl-layout__tab-bar-right-button"><i class="material-icons">chevron_right</i></div>
+        </div>
+      </header>
 
-        <button class="new-repair mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="demo-menu-lower-right"
-                class="mdl-button mdl-js-button mdl-button--icon">
+      <button class="new-repair mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
           <i class="material-icons">more_vert</i>
           <span class="visuallyhidden">New Repair</span>
           <a href="#open-modal">
@@ -43,50 +48,55 @@
           </a>
         </button>
 
-        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-            for="demo-menu-lower-right">
-          <a href="#acceptModal"><li class="mdl-menu__item">Accept Machine for Repair</li></a>
-          <a href="#updateMachinesModal" id="updateMachines"><li class="mdl-menu__item">Update Machine Status</li></a>
-          <a href="#showMachinesListModal" id="showMachinesList"><li class="mdl-menu__item">Show Customer Bill</li></a>
-        </ul>
+      <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+        <a href="#acceptModal">
+          <li class="mdl-menu__item">Accept Machine for Repair</li>
+        </a>
+        <a href="#updateMachinesModal" id="updateMachines">
+          <li class="mdl-menu__item">Update Machine Status</li>
+        </a>
+        <a href="#showMachinesListModal" id="showMachinesList">
+          <li class="mdl-menu__item">Show Customer Bill</li>
+        </a>
+      </ul>
 
 
-		<div id="repair-jobs-list"></div>
+      <div id="repair-jobs-list"></div>
     </div>
 
 
     <!-- Modals -->
-	<div id="updateMachineDetailsModal" class="modalbg">
-      <div class="dialog" >
+    <div id="updateMachineDetailsModal" class="modalbg">
+      <div class="dialog">
         <a href="#close" title="Close" class="close">X</a>
-      	<h2>Update Machine Details</h2>
+        <h2>Update Machine Details</h2>
         <form id="machineDetailsForm" action="index.html" method="post">
-		  <div class="form-group">
-            	<input type="text" name="details_repair_id" required="required"/>
-            	<label class="control-label" for="input">JobID</label><i class="bar"></i>
+          <div class="form-group">
+            <input type="text" name="details_repair_id" required="required" />
+            <label class="control-label" for="input">JobID</label><i class="bar"></i>
           </div>
-		  <div class="form-group">
-            	<input type="text" name="details_employee_no" required="required"/>
-            	<label class="control-label" for="input">EmployeeNo</label><i class="bar"></i>
+          <div class="form-group">
+            <input type="text" name="details_employee_no" required="required" />
+            <label class="control-label" for="input">EmployeeNo</label><i class="bar"></i>
           </div>
-		  <div class="form-group">
-            	<input type="text" name="details_bill_id" required="required"/>
-            	<label class="control-label" for="input">BillID</label><i class="bar"></i>
+          <div class="form-group">
+            <input type="text" name="details_bill_id" required="required" />
+            <label class="control-label" for="input">BillID</label><i class="bar"></i>
           </div>
-		  <div class="form-group">
-            	<input type="text" name="details_phone" required="required"/>
-            	<label class="control-label" for="input">Phone</label><i class="bar"></i>
+          <div class="form-group">
+            <input type="text" name="details_phone" required="required" />
+            <label class="control-label" for="input">Phone</label><i class="bar"></i>
           </div>
-		  <div class="form-group">
-            	<input type="text" name="details_machine_id" required="required"/>
-            	<label class="control-label" for="input">MachineID</label><i class="bar"></i>
+          <div class="form-group">
+            <input type="text" name="details_machine_id" required="required" />
+            <label class="control-label" for="input">MachineID</label><i class="bar"></i>
           </div>
-		  <div class="form-group">
-            	<input type="text" name="details_service_contract_id" required="required"/>
-            	<label class="control-label" for="input">Service Contract ID</label><i class="bar"></i>
+          <div class="form-group">
+            <input type="text" name="details_service_contract_id" required="required" />
+            <label class="control-label" for="input">Service Contract ID</label><i class="bar"></i>
           </div>
-		  <div class="form-group">
-            <select name="details_machine_status" >
+          <div class="form-group">
+            <select name="details_machine_status">
               <option>UNDER_REPAIR</option>
               <option>READY</option>
               <option>DONE</option>
@@ -94,67 +104,67 @@
             <label class="control-label" for="select">Machine Status</label><i class="bar"></i>
           </div>
 
-		  <div class="form-group">
-            	<input type="text" name="details_time_in" required="required"/>
-            	<label class="control-label" for="input">Time In</label><i class="bar"></i>
+          <div class="form-group">
+            <input type="text" name="details_time_in" required="required" />
+            <label class="control-label" for="input">Time In</label><i class="bar"></i>
           </div>
-		  <div class="form-group">
-            	<input type="text" name="details_time_out"/>
-            	<label class="control-label" for="input">Time Out</label><i class="bar"></i>
+          <div class="form-group">
+            <input type="text" name="details_time_out" />
+            <label class="control-label" for="input">Time Out</label><i class="bar"></i>
           </div>
-		  <div class="form-group">
-            	<input type="text" name="details_cost_of_parts" required="required"/>
-            	<label class="control-label" for="input">Cost</label><i class="bar"></i>
+          <div class="form-group">
+            <input type="text" name="details_cost_of_parts" required="required" />
+            <label class="control-label" for="input">Cost</label><i class="bar"></i>
           </div>
-		  <div class="form-group">
-            	<input type="text" name="details_time_hours" required="required"/>
-            	<label class="control-label" for="input">Hours</label><i class="bar"></i>
+          <div class="form-group">
+            <input type="text" name="details_time_hours" required="required" />
+            <label class="control-label" for="input">Hours</label><i class="bar"></i>
           </div>
           <div class="button-container">
-           <button class="button" type="submit"><span>Submit</span></button>
-         </div>
+            <button class="button" type="submit"><span>Submit</span></button>
+          </div>
         </form>
       </div>
     </div>
     <div id="acceptModal" class="modalbg">
       <div class="dialog">
         <a href="#close" title="Close" class="close">X</a>
-      	<h2>Accept Machine for Repair</h2>
+        <h2>Accept Machine for Repair</h2>
         <form id="acceptMachineForm" action="index.html" method="post">
           <div class="form-group">
-            <input type="text" name="contract_id" required="required"/>
+            <input type="text" name="contract_id" required="required" />
             <label class="control-label" for="input">Contract ID (Optional)</label><i class="bar"></i>
           </div>
           <div class="form-group">
-            <input type="text" name="cust_name" required="required"/>
-            <label class="control-label"  for="input">Custome Name</label><i class="bar"></i>
+            <input type="text" name="cust_name" required="required" />
+            <label class="control-label" for="input">Custome Name</label><i class="bar"></i>
           </div>
           <div class="form-group">
-            <input type="text" name="cust_phone" required="required"/>
+            <input type="text" name="cust_phone" required="required" />
             <label class="control-label" for="input">Custome Phone</label><i class="bar"></i>
           </div>
           <div class="form-group">
-            <input type="text" name="model" required="required"/>
+            <input type="text" name="model" required="required" />
             <label class="control-label" for="input">Model</label><i class="bar"></i>
           </div>
           <div class="form-group">
-            <input type="text" name="price" required="required"/>
+            <input type="text" name="price" required="required" />
             <label class="control-label" for="input">Price</label><i class="bar"></i>
           </div>
           <div class="form-group">
-            <input type="text" name="year" required="required"/>
+            <input type="text" name="year" required="required" />
             <label class="control-label" for="input">Year</label><i class="bar"></i>
           </div>
           <div class="form-group">
-            <select name="machine_type" >
+            <select name="machine_type">
               <option>Computer</option>
               <option>Printer</option>
             </select>
             <label class="control-label" for="select">Machine Type</label><i class="bar"></i>
           </div>
           <div class="button-container">
-           <button class="button" type="submit"><span>Submit</span></button>
-         </div>
+            <button class="button" type="submit"><span>Submit</span></button>
+          </div>
         </form>
       </div>
     </div>
@@ -162,56 +172,56 @@
     <div id="updateMachinesModal" class="modalbg" style="overlfow: scroll">
       <div class="dialog" id="machine-items-dialog">
         <a href="#close" title="Close" class="close">X</a>
-      	<h2>Update Machine Status</h2>
+        <h2>Update Machine Status</h2>
       </div>
     </div>
-	<div id="showMachinesListModal" class="modalbg" style="overlfow: scroll">
+    <div id="showMachinesListModal" class="modalbg" style="overlfow: scroll">
       <div class="dialog" id="show-machine-list-dialog">
         <a href="#close" title="Close" class="close">X</a>
-      	<h2>Select a Machine</h2>
-	
+        <h2>Select a Machine</h2>
+
       </div>
     </div>
-	<div id="showCustomerBillInfoModal" class="modalbg" style="overlfow: scroll">
+    <div id="showCustomerBillInfoModal" class="modalbg" style="overlfow: scroll">
       <div class="dialog" id="show-machine-list-dialog">
         <a href="#close" title="Close" class="close">X</a>
-      	<h2>Customer Bill<span name="repair_id"></span></h2>
+        <h2>Customer Bill<span name="repair_id"></span></h2>
         <div class="form-group">
-            <input type="text" name="cb_name"/>
-            <label class="control-label" for="input">Customer Name</label><i class="bar"></i>
+          <input type="text" name="cb_name" />
+          <label class="control-label" for="input">Customer Name</label><i class="bar"></i>
         </div>
         <div class="form-group">
-            <input type="text" name="cb_phone" required="required"/>
-            <label class="control-label" for="input">Customer Phone/Email</label><i class="bar"></i>
+          <input type="text" name="cb_phone" required="required" />
+          <label class="control-label" for="input">Customer Phone/Email</label><i class="bar"></i>
         </div>
         <div class="form-group">
-            <input type="text" name="cb_model" required="required"/>
-            <label class="control-label" for="input">Model</label><i class="bar"></i>
+          <input type="text" name="cb_model" required="required" />
+          <label class="control-label" for="input">Model</label><i class="bar"></i>
         </div>
 
         <div class="form-group">
-            <input type="text" name="cb_timein" required="required"/>
-            <label class="control-label" for="input">Time Brought In</label><i class="bar"></i>
+          <input type="text" name="cb_timein" required="required" />
+          <label class="control-label" for="input">Time Brought In</label><i class="bar"></i>
         </div>
         <div class="form-group">
-            <input type="text" name="cb_timeout" required="required"/>
-            <label class="control-label" for="input">Time Ready</label><i class="bar"></i>
+          <input type="text" name="cb_timeout" required="required" />
+          <label class="control-label" for="input">Time Ready</label><i class="bar"></i>
         </div>
 
-		<h4>Problems</h4>
+        <h4>Problems</h4>
         <div class="problems"></div>
-		<br/>
+        <br/>
         <div class="form-group">
-            <input type="text" name="cb_costofparts" required="required"/>
-            <label class="control-label" for="input">Cost of Parts</label><i class="bar"></i>
+          <input type="text" name="cb_costofparts" required="required" />
+          <label class="control-label" for="input">Cost of Parts</label><i class="bar"></i>
         </div>
         <div class="form-group">
-            <input type="text" name="cb_laborhours" required="required"/>
-            <label class="control-label" for="input">Labor Hours</label><i class="bar"></i>
+          <input type="text" name="cb_laborhours" required="required" />
+          <label class="control-label" for="input">Labor Hours</label><i class="bar"></i>
         </div>
         <div class="form-group">
-            <input type="text" name="cb_total" required="required"/>
-            <label class="control-label" for="input">Total</label><i class="bar"></i>
+          <input type="text" name="cb_total" required="required" />
+          <label class="control-label" for="input">Total</label><i class="bar"></i>
         </div>
       </div>
     </div>
@@ -220,5 +230,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="./js/db/db.js"></script>
     <script type="text/javascript" src="./js/forms.js"></script>
-  </body>
+</body>
+
 </html>
