@@ -53,6 +53,7 @@ body {
   -o-transition: all 0.1s ease-out;
   transition: all 0.1s ease-out;
 }
+
 .modalbg:target .dialog {
   top: -20px;
   -moz-transition: all 0.1s ease-out;

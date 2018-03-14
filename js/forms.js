@@ -1,4 +1,20 @@
 $(window).on("load", function() {
+  // Get Repair Jobs count
+  setTimeout(function() {
+    db.receiveInfo("./php/showRepairsJobs.php", {}, "GET", function(data) {
+      if (data.length === 0) {
+        alert("Uh oh! There are no repair jobs!");
+	  }
+
+	  var jobs = data.split("|");
+      repairJobsBadge = document.getElementById("repairjobsbadge");
+      repairJobsBadge.setAttribute("data-badge", `${jobs.length-1}`);
+	});
+  }, 500);
+
+
+	
+
   // Accept Machine for Repair Handler
   $("#acceptMachineForm").submit(function(e) {
     e.preventDefault();
@@ -13,9 +29,16 @@ $(window).on("load", function() {
       machineType: $("select[name=machine_type]").val()
     };
 
-    db.receiveInfo("./../../php/acceptForRepair.php", machine, "POST", function(
+    db.receiveInfo("./php/acceptForRepair.php", machine, "POST", function(
       data
     ) {
+
+	  if (data.includes("404")) {
+		alert("Service Contract ID valid at this time or does not exist.");
+		return;
+	  }
+
+	  window.location.href = "./index.html";
       console.log("Data Returned: ", data);
     });
   });
@@ -153,5 +176,80 @@ $(window).on("load", function() {
   }
   }, 500);
 
+
+
+  // Show all machines in update machines modal
+  $("#showMachinesList").on("click", function(e) {
+    db.receiveInfo("./php/getMachinesCustomerBill.php", {}, "GET", function(data) {
+      if (data.length === 0) {
+		alert("Uh oh! Please ensure that there are machines in RepairJobs table.");
+	  }
+
+        $(".machine-items").remove();
+		var machines = data.split("|");
+
+        $(".machine-items").empty();
+		$("#show-machine-list-dialog").append($("<div class='machine-items'></div>"));
+		for (var i = 0; i < machines.length; i++) {
+			if (i == machines.length-1) break; // remove undefined row
+			var machineId = machines[i];
+			// Find the machines table and append rows to it with the new information
+			$(".machine-items").append($('<div class="machine-item-details">').append($('<ul>')
+        		.append($('<li><a class="show-machine-details-link" href="#showCustomerBillInfoModal">VIEW('+machineId+')</a></li>')) 
+       		))
+		}
+
+		 // Close existing update machines modal when user wants to update machine-details
+ 		$(".show-machine-details-link").on("click", function() {
+		  var text = $(this).text();
+		  var machineId = text.substring('VIEW('.length, text.length).slice(0, -1);
+          db.receiveInfo("./php/showCustomerBill.php", { machineId: machineId }, "POST", function(
+            data
+          ) {
+            var billInfo = data.split("/");
+			var info = billInfo[0].split(",");
+			var problems = billInfo[1].split("%");
+
+			$("input[name=cb_name]").val(info[4]);
+			$("input[name=cb_phone]").val(info[3]);
+			$("input[name=cb_model]").val(info[5]);
+			$("input[name=cb_timein]").val(info[6]);
+			$("input[name=cb_timeout]").val(info[7]);
+			$("input[name=cb_costofparts]").val(info[0]);
+			$("input[name=cb_laborhours]").val(info[1]);
+			$("input[name=cb_total]").val(info[2]);
+
+			$(".problems").empty();
+			$(".problems").append($('<ul>'));
+
+		    for (var j = 0; j < problems.length; j++) {
+				if (j == problems.length-1) break;
+				
+				var code = problems[j].split(",")[0];
+				var desc = problems[j].split(",")[1];
+
+				$(".problems ul").append($('<li>'+code+': '+desc+'</li>'));
+			}
+          });
+	    });
+    });
+  });
+
+
+  // Show CustomerBill
+  $("#machineDetailsForm").submit(function(e) {
+    e.preventDefault();
+
+    var repairJob = {
+      machineId: $("input[name=customer_bill_machine_id]").val()
+    };
+
+	console.log(repairJob);
+    db.receiveInfo("./php/updateMachineStatus.php", repairJob, "POST", function(
+      data
+    ) {
+      console.log("Data Returned: ", data);
+    });
+  });
 
 });

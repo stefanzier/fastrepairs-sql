@@ -27,7 +27,7 @@
           </div>
           <div class="mdl-layout__tab-bar-container"><div class="mdl-layout__tab-bar-button mdl-layout__tab-bar-left-button"><i class="material-icons">chevron_left</i></div><div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark mdl-js-ripple-effect--ignore-events" data-upgraded=",MaterialRipple">
             <a href="index.html" class="mdl-layout__tab is-active" style="width: 15%; margin-right:10%">Finances<span class="mdl-layout__tab-ripple-container mdl-js-ripple-effect" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span></a>
-            <a href="repair-jobs.html" class="mdl-layout__tab" style="width: 15%; margin-right:10%"><span class="mdl-badge" data-badge="3">Repair-Jobs</span></a>
+            <a href="repair-jobs.html" class="mdl-layout__tab" style="width: 15%; margin-right:10%"><span id="repairjobsbadge" class="mdl-badge repairjobscount" data-badge="">Repair-Jobs</span></a>
           </div><div class="mdl-layout__tab-bar-button mdl-layout__tab-bar-right-button"><i class="material-icons">chevron_right</i></div></div>
         </header>
 
@@ -47,7 +47,7 @@
             for="demo-menu-lower-right">
           <a href="#acceptModal"><li class="mdl-menu__item">Accept Machine for Repair</li></a>
           <a href="#updateMachinesModal" id="updateMachines"><li class="mdl-menu__item">Update Machine Status</li></a>
-          <li class="mdl-menu__item">Show Customer Bill</li>
+          <a href="#showMachinesListModal" id="showMachinesList"><li class="mdl-menu__item">Show Customer Bill</li></a>
         </ul>
 
       <!-- Revenue Charts -->
@@ -125,7 +125,7 @@
     </div>
     <div id="acceptModal" class="modalbg">
       <div class="dialog">
-        <a href="#close" title="Close" class="close">X</a>
+        <a href="#close" title="Close" id="accept-modal-close" class="close">X</a>
       	<h2>Accept Machine for Repair</h2>
         <form id="acceptMachineForm" action="index.html" method="post">
           <div class="form-group">
@@ -172,7 +172,56 @@
       	<h2>Update Machine Status</h2>
       </div>
     </div>
+	<div id="showMachinesListModal" class="modalbg" style="overlfow: scroll">
+      <div class="dialog" id="show-machine-list-dialog">
+        <a href="#close" title="Close" class="close">X</a>
+      	<h2>Select a Machine</h2>
+	
+      </div>
+    </div>
+	<div id="showCustomerBillInfoModal" class="modalbg" style="overlfow: scroll">
+      <div class="dialog" id="show-machine-list-dialog">
+        <a href="#close" title="Close" class="close">X</a>
+      	<h2>Customer Bill<span name="repair_id"></span></h2>
+        <div class="form-group">
+            <input type="text" name="cb_name"/>
+            <label class="control-label" for="input">Customer Name</label><i class="bar"></i>
+        </div>
+        <div class="form-group">
+            <input type="text" name="cb_phone" required="required"/>
+            <label class="control-label" for="input">Customer Phone/Email</label><i class="bar"></i>
+        </div>
+        <div class="form-group">
+            <input type="text" name="cb_model" required="required"/>
+            <label class="control-label" for="input">Model</label><i class="bar"></i>
+        </div>
 
+        <div class="form-group">
+            <input type="text" name="cb_timein" required="required"/>
+            <label class="control-label" for="input">Time Brought In</label><i class="bar"></i>
+        </div>
+        <div class="form-group">
+            <input type="text" name="cb_timeout" required="required"/>
+            <label class="control-label" for="input">Time Ready</label><i class="bar"></i>
+        </div>
+
+		<h4>Problems</h4>
+        <div class="problems"></div>
+		<br/>
+        <div class="form-group">
+            <input type="text" name="cb_costofparts" required="required"/>
+            <label class="control-label" for="input">Cost of Parts</label><i class="bar"></i>
+        </div>
+        <div class="form-group">
+            <input type="text" name="cb_laborhours" required="required"/>
+            <label class="control-label" for="input">Labor Hours</label><i class="bar"></i>
+        </div>
+        <div class="form-group">
+            <input type="text" name="cb_total" required="required"/>
+            <label class="control-label" for="input">Total</label><i class="bar"></i>
+        </div>
+      </div>
+    </div>
 
     <!-- For chart js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

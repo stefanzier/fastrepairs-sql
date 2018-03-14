@@ -55,8 +55,23 @@
 		$empCount = rand(1, oci_result($empCountQuery, 'COUNT'));
 	}
 
+    // Query DB SingleContract to get contractId type
+	$serviceContractQueryString = "SELECT * FROM ServiceContracts WHERE contractId='{$contract_id}' AND SYSDATE BETWEEN startDate AND endDate";
+	$serviceContractQuery = oci_parse($conn, $serviceContractQueryString);
+	$serviceContractQueryResult = oci_execute($serviceContractQuery);
+
+	$countSCs = 0;
+	while (($row = oci_fetch_array($serviceContractQuery, OCI_BOTH)) != false) {
+		$countSCs += 1;
+	}
+	if ($countSCs == 0) {
+		echo "ERR404";
+		exit;
+	}
+
 	// If the contractId is not empty then we need to set the $contract_type to Single or GROUP
 	$contract_type = "NONE";
+	$errorMessage  = "";
 	if ($contract_id !== '') {
 		// Query DB SingleContract to get contractId type
 	  $contractTypeQueryString = "SELECT * FROM SingleContracts WHERE contractid='{$contract_id}'";
@@ -79,20 +94,18 @@
   }
 
 
-  // Insert into Customers
-  $insertCustomerQueryString = "INSERT INTO Customers VALUES('{$name}', '{$phone}')";
+    // Insert into Customers
+    $insertCustomerQueryString = "INSERT INTO Customers VALUES('{$name}', '{$phone}')";
 	$insertCustomerQuery = oci_parse($conn, $insertCustomerQueryString);
 	$insertCustomerQueryResult = oci_execute($insertCustomerQuery);
 
 
 	if (!$insertCustomerQueryResult) {
-		$e = oci_error($insertCustomerQuery);
-		echo "InsertCustomer Error: {$e['message']}";
-		exit;
+		echo "There's already a customer with this phone/email in the database. Continuing...";
 	}
 
-  // Insert into RepairItems
-  $insertRepairItemQueryString = "INSERT INTO RepairItems VALUES('{$itemId}', '{$machineId}', {$price}, {$year}, '{$contract_type}')";
+    // Insert into RepairItems
+    $insertRepairItemQueryString = "INSERT INTO RepairItems VALUES('{$itemId}', '{$machineId}', {$price}, {$year}, '{$contract_type}')";
 	$insertRepairItemQuery = oci_parse($conn, $insertRepairItemQueryString);
 	$insertRepairItemQueryResult = oci_execute($insertRepairItemQuery);
 
@@ -113,7 +126,7 @@
 	}
 
 	echo $contract_id;
-  echo $itemId;
+    echo $itemId;
 
   // Insert into RepairJobs
 	$employeeNo = "emp00{$empCount}";
@@ -123,7 +136,6 @@
   $insertRepairJobQueryString = "INSERT INTO RepairJobs VALUES('{$repairId}', '{$employeeNo}', '{$phone}', '{$itemId}', '{$contract_id}', TIMESTAMP '${timestamp}', 'UNDER_REPAIR')";
 	$insertRepairJobQuery = oci_parse($conn, $insertRepairJobQueryString);
 	$insertRepairJobQueryResult = oci_execute($insertRepairJobQuery);
-	echo "Hello there: {$insertRepairJobQueryResult}";
 	if (!$insertRepairJobQueryResult) {
 		$e = oci_error($insertRepairJobQuery);
 		echo "InsertRepairJob Error: {$e['message']}\n\n";

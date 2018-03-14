@@ -48,6 +48,7 @@ INSERT INTO Problems VALUES('pr05', 'Faulty disc drive.');
 
 -- Problem Reports
 INSERT INTO ProblemReports VALUES('item001', 'pr01');
+INSERT INTO ProblemReports VALUES('item001', 'pr03');
 INSERT INTO ProblemReports VALUES('item002', 'pr03');
 INSERT INTO ProblemReports VALUES('item003', 'pr05');
 
