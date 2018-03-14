@@ -61,7 +61,7 @@ CREATE OR REPLACE TRIGGER update_cost_trigger
 		v_cost DECIMAL(10, 2);
 		cost_of_parts DECIMAL(10, 2);
 		hours DECIMAL(5, 2); 
-		total DECIMAL(10, 2);
+		v_total DECIMAL(10, 2);
 		contract VARCHAR(20);
 	BEGIN
 		hours := :new.laborHours;
@@ -69,12 +69,12 @@ CREATE OR REPLACE TRIGGER update_cost_trigger
 
 		SELECT serviceContractId INTO contract FROM RepairJobs WHERE machineId = :new.machineId;
 		IF (contract IS NOT NULL) THEN
-			total := 0;
+			v_total := 0;
 			v_cost := 0;
 		ELSE 
-			total := (hours * 20) + (v_cost);
+			v_total := (hours * 20) + (v_cost);
 		END IF;
-		UPDATE CustomerBills SET costOfParts = v_cost WHERE billId = :new.billId;
+		UPDATE CustomerBills SET total = v_total WHERE billId = :new.billId;
 	END;
 /
 Show errors;
