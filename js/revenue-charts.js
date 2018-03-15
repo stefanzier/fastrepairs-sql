@@ -7,6 +7,7 @@ $(document).ready(function() {
     };
 
     console.log(dates);
+	console.log(db);
     db.receiveInfo("./php/getRevenue.php", dates, "POST", function(data) {
       if (data.length === 0) {
         alert("Uh oh! Nothing found with this date range.");
@@ -18,22 +19,24 @@ $(document).ready(function() {
       var axisTitle = `${$("input[name=date_1").val()}-${$(
         "input[name=date_2"
       ).val()}`;
-      createGraph(axisTitle, title, Number(data));
+
+	
+	  var data = data.split("|");
+	  var total = data[0];
+	  var coveredTotal = data[1];
+      createGraph(axisTitle, title, Number(total), Number(coveredTotal));
     });
   });
 
-  function createGraph(labels, label, data) {
+  function createGraph(labels, label, d, d2) {
     var data = {
-      labels: [labels],
       datasets: [
         {
-          label: label,
           backgroundColor: "rgba(255,99,132,0.2)",
           borderColor: "rgba(255,99,132,1)",
           borderWidth: 2,
           hoverBackgroundColor: "rgba(255,99,132,0.4)",
-          hoverBorderColor: "rgba(255,99,132,1)",
-          data: [data]
+          hoverBorderColor: "rgba(255,99,132,1)"
         }
       ]
     };
@@ -60,16 +63,22 @@ $(document).ready(function() {
       }
     };
 
-    var myChart = new Chart("chart", {
-      options,
-      data,
-      type: "bar"
-    });
+  var myChart = new Chart("chart", {
+  type: 'bar',
+  data: {
+    labels: ["Total", "Covered Total"],
+    datasets: [{
+      label: 'total',
+      data: [d, d2],
+          backgroundColor: "rgba(255,99,132,0.2)",
+          borderColor: "rgba(255,99,132,1)",
+          borderWidth: 2,
+          hoverBackgroundColor: "rgba(255,99,132,0.4)",
+          hoverBorderColor: "rgba(255,99,132,1)"
+      }]
+    }
+  });
 
-    var labels = {
-      apples: true,
-      oranges: true
-    };
   }
 
   createGraph("Please enter a date range", "Please enter a date range", 0);

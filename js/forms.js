@@ -22,6 +22,7 @@ $(window).on("load", function() {
       phone: $("input[name=cust_phone]").val(),
       model: $("input[name=model]").val(),
       price: $("input[name=price]").val(),
+      problems: $("input[name=problems]").val(),
       year: $("input[name=year]").val(),
       machineType: $("select[name=machine_type]").val()
     };
@@ -29,12 +30,21 @@ $(window).on("load", function() {
     db.receiveInfo("./php/acceptForRepair.php", machine, "POST", function(
       data
     ) {
+
+	  console.log(data);
       if (data.includes("404")) {
         alert("Service Contract ID valid at this time or does not exist.");
         return;
       }
 
-      window.location.href = "./index.html";
+	  if (data.includes("504")) {
+		var error = data.split("|");
+		var machineId = error[1];
+        alert("This contractId is already in-use by machineId: " + machineId);
+        return;
+      }
+
+      //window.location.href = "./index.html";
       console.log("Data Returned: ", data);
     });
   });
@@ -47,8 +57,9 @@ $(window).on("load", function() {
           "Uh oh! Please ensure that there are machines in RepairJobs table."
         );
       }
-
+	  console.log(data);
       var machines = data.split("|");
+	  console.log(machines);
       localStorage.setItem("machines", data);
       $("#machine-items-dialog").append($("<div class='machine-items'></div>"));
       for (var i = 0; i < machines.length; i++) {
@@ -141,7 +152,6 @@ $(window).on("load", function() {
       details_time_hours: $("input[name=details_time_hours]").val()
     };
 
-    console.log(repairJob);
     db.receiveInfo("./php/updateMachineStatus.php", repairJob, "POST", function(
       data
     ) {
@@ -152,14 +162,13 @@ $(window).on("load", function() {
   // Show repair jobs
   setTimeout(function() {
     if ($("#repair-jobs-list").length) {
-      console.log(db);
       db.receiveInfo("./php/showRepairsJobs.php", {}, "GET", function(data) {
         if (data.length === 0) {
           alert("Uh oh! There are no repair jobs!");
         }
 
-        var jobs = data.split("|");
-        console.log(jobs);
+		console.log(data);
+        var jobs = data.split("|");	
         for (var i = 0; i < jobs.length; i++) {
           if (i === jobs.length - 1) break;
 
@@ -180,6 +189,7 @@ $(window).on("load", function() {
                 .append($("<li>" + machineId + "</li>"))
                 .append($("<li>" + serviceContractId + "</li>"))
                 .append($("<li>" + timeOfArrival + "</li>"))
+                .append($("<p style='margin-left: -20px'>=============================</p>"))
             )
           );
         }
@@ -194,7 +204,7 @@ $(window).on("load", function() {
     ) {
       if (data.length === 0) {
         alert(
-          "Uh oh! Please ensure that there are machines in RepairJobs table."
+          "Uh Oh! There are no customer bills right now :("
         );
       }
 
@@ -236,7 +246,9 @@ $(window).on("load", function() {
             var billInfo = data.split("/");
             var info = billInfo[0].split(",");
             var problems = billInfo[1].split("%");
-
+			console.log(data);
+			console.log(info);
+			console.log(problems);
             $("input[name=cb_name]").val(info[4]);
             $("input[name=cb_phone]").val(info[3]);
             $("input[name=cb_model]").val(info[5]);
@@ -266,7 +278,7 @@ $(window).on("load", function() {
   });
 
   // Show CustomerBill
-  $("#machineDetailsForm").submit(function(e) {
+  $("#machineDetailsFormCustomerBill").submit(function(e) {
     e.preventDefault();
 
     var repairJob = {

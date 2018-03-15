@@ -37,10 +37,12 @@ CREATE OR REPLACE TRIGGER check_contract_trig
 		contractStart DATE; 
 		contractEnd DATE;
 	BEGIN
-
+		
 		sid := :new.serviceContractId;
 		tin := :new.timeOfArrival;
-		
+		IF(sid IS NULL) THEN
+			RETURN;
+		END IF;
 		SELECT startDate INTO contractStart FROM ServiceContracts WHERE contractId = sid;
 		SELECT endDate INTO contractEnd FROM ServiceContracts WHERE contractId = sid;
 
@@ -49,32 +51,6 @@ CREATE OR REPLACE TRIGGER check_contract_trig
 			RAISE_APPLICATION_ERROR(-20101, 'The given contract cannot be used at this time. (Expired or not active yet.)');
     		ROLLBACK;
 		END IF;
-	END;
-/
-Show errors;
-
--- Create a trigger to automate total costs in Bill table
-CREATE OR REPLACE TRIGGER update_cost_trigger
-	AFTER INSERT OR UPDATE ON CustomerBills
-	FOR EACH ROW
-	DECLARE
-		v_cost DECIMAL(10, 2);
-		cost_of_parts DECIMAL(10, 2);
-		hours DECIMAL(5, 2); 
-		v_total DECIMAL(10, 2);
-		contract VARCHAR(20);
-	BEGIN
-		hours := :new.laborHours;
-		v_cost := :new.costOfParts;
-
-		SELECT serviceContractId INTO contract FROM RepairJobs WHERE machineId = :new.machineId;
-		IF (contract IS NOT NULL) THEN
-			v_total := 0;
-			v_cost := 0;
-		ELSE 
-			v_total := (hours * 20) + (v_cost);
-		END IF;
-		UPDATE CustomerBills SET total = v_total WHERE billId = :new.billId;
 	END;
 /
 Show errors;

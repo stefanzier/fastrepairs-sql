@@ -35,7 +35,17 @@
         }
     }
 
+	$coveredTotal = 0;
+    $getCustomerBillQueryString = "SELECT * FROM CustomerBills WHERE timeOut BETWEEN TIMESTAMP'{$date_1}' AND TIMESTAMP'{$date_2}' AND total=0";
+    $getCustomerBillQuery = oci_parse($conn, $getCustomerBillQueryString);
+    $getCustomerBillQueryResult = oci_execute($getCustomerBillQuery);
 
-    echo $total;
+    while (($row = oci_fetch_array($getCustomerBillQuery, OCI_BOTH)) != false) {
+        $cost = $row[7];
+        $hours = $row[6];
+        $coveredTotal += ($cost + $hours*20 +50);
+    }
+
+    echo $total . "|" . $coveredTotal;
 
     OCILogoff($conn);

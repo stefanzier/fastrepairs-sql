@@ -25,17 +25,52 @@
   // Values from updateMachineForm
   $billId = isset($_POST['details_bill_id']) ? $_POST['details_bill_id'] : null;
   $timeIn = isset($_POST['details_time_in']) ? $_POST['details_time_in'] : null;
+
   $timeOut = isset($_POST['details_time_out']) ? $_POST['details_time_out'] : null;
   $cost = isset($_POST['details_cost_of_parts']) ? $_POST['details_cost_of_parts'] : null;
   $hours = isset($_POST['details_time_hours']) ? $_POST['details_time_hours'] : null;
-  // Insert into CustomerBill
-  $insertBillQueryString = "UPDATE CustomerBills SET timeIn = '{$timeIn}', timeOut = '{$timeOut}', costOfParts = '{$cost}', laborHours = '{$hours}' WHERE billId = '{$billId}'";
-  $insertBillQuery = oci_parse($conn, $insertBillQueryString);
-  $insertBillQueryResult = oci_execute($insertBillQuery);
-    if (!$insertBillQueryResult) {
-        $e = oci_error($insertBillQuery);
-        echo "CustomerBill Insert Error: {$e['message']}";
-        exit;
-    }
+
+  // Query DB SingleContract to get contractId type
+  $countCBs = 0;
+  $cbQueryString = "SELECT * FROM CustomerBills WHERE billId='{$billId}'";
+  $cbQuery = oci_parse($conn, $cbQueryString);
+  $cbQueryStringResult = oci_execute($cbQuery);
+  $row = oci_fetch_array($cbQuery, OCI_BOTH);
+  
+  $countCBs = 0;
+  if ($row != false) {
+    $countCBs = 1;
+  }
+
+  $total = 0;
+  if (!$serviceContractId) {
+  echo 'hours and cost: ' . $hours . $cost;
+	if ($hours && $cost) {
+    	$total = $hours*20 + 50 + $cost;
+	}
+  }
+
+  $timeOut = (!$timeOut) ? "SYSTIMESTAMP" : "'{$timeOut}'";
+  if ($countCBs > 0) {
+    // Update into CustomerBill
+    $cbQueryString = "UPDATE CustomerBills SET timeIn = '{$timeIn}', timeOut = {$timeOut}, costOfParts = {$cost}, laborHours = {$hours}, total={$total} WHERE billId = '{$billId}'";	
+    $cbQuery = oci_parse($conn, $cbQueryString);
+    $cbQueryResult = oci_execute($cbQuery);
+      if (!$cbQueryResult) {
+          $e = oci_error($cbQuery);
+          echo "CustomerBill update Error: {$e['message']}";
+          exit;
+      }
+  } else {
+    // Update into CustomerBill
+	$cost = (!$cost) ? "NULL" : $cost;
+	$hours = (!$hours) ? "NULL" : $hours;
+    $cbQueryString = "INSERT INTO CustomerBills VALUES('{$billId}', '{$machineId}', '{$phone}', TIMESTAMP'{$timeIn}', $timeOut, '{$employeeNo}', $cost, $hours, $total)";
+	echo $cbQueryString;    
+	$cbQuery = oci_parse($conn, $cbQueryString);
+    $cbQueryResult = oci_execute($cbQuery);
+  }
+
+
     echo 'SUCCESS. INSERTED VALUES';
     OCILogoff($conn);

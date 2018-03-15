@@ -20,6 +20,11 @@
         $machinesString .= "{$row[2]},";
         $machinesString .= "{$row[3]},";
         $machineId = $row[3];
+
+
+		if (empty($row[4])) {
+			$row[4] = "";
+		}
         $machinesString .= "{$row[4]},";
         $machinesString .= "{$row[5]},";
         $machinesString .= "{$row[6]},";
@@ -42,8 +47,10 @@
             $machinesString .= "{$timeOut},";
             $machinesString .= "{$costOfParts},";
             $machinesString .= "{$hours},";
-            $machinesString .= "{$total}|";
+            $machinesString .= "{$total}";
         }
+
+        $machinesString .= "|";
     }
 
     echo $machinesString;
