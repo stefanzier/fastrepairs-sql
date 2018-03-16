@@ -42,15 +42,16 @@ $(document).ready(function() {
     };
 
     var options = {
-      maintainAspectRatio: false,
       scales: {
         yAxes: [
           {
-            stacked: true,
             gridLines: {
               display: true,
-              color: "rgba(255,99,132,0.2)"
-            }
+              color: "rgba(255,99,132,0.2)",
+            },
+	    ticks: {
+		beginAtZero: true
+	    }
           }
         ],
         xAxes: [
@@ -64,22 +65,31 @@ $(document).ready(function() {
     };
 
   var myChart = new Chart("chart", {
+  options,
   type: 'bar',
   data: {
-    labels: ["Total", "Covered Total"],
+    labels: ["Totals"],
     datasets: [{
-      label: 'total',
-      data: [d, d2],
+      label: 'Unconvered Total',
           backgroundColor: "rgba(255,99,132,0.2)",
           borderColor: "rgba(255,99,132,1)",
-          borderWidth: 2,
+          borderWidth: 1,
           hoverBackgroundColor: "rgba(255,99,132,0.4)",
-          hoverBorderColor: "rgba(255,99,132,1)"
+          hoverBorderColor: "rgba(255,99,132,1)",
+	  data: [d]
+      }, {
+      label: 'Covered',
+          backgroundColor: "rgba(255,99,132,0.2)",
+          borderColor: "rgba(255,99,132,1)",
+          borderWidth: 1,
+          hoverBackgroundColor: "rgba(255,99,132,0.4)",
+          hoverBorderColor: "rgba(255,99,132,1)",
+	  data: [d2]
       }]
     }
   });
 
   }
 
-  createGraph("Please enter a date range", "Please enter a date range", 0);
+  createGraph("Please enter a date range", "Please enter a date range", 0, 0);
 });
