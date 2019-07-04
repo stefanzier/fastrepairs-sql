@@ -1,4 +1,4 @@
-# COEN 178 - FastRepairs
+# FastRepairs
 
 An easy-to-use web application to interact with a SQL backend.
 
